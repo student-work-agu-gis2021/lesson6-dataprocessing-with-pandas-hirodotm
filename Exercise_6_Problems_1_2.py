@@ -58,7 +58,7 @@ print('Number of no-data values in column "TMIN":', tmin_nodata_count)
 day_count = None 
 #YOUR CODE HERE 4
 #count the total number of days by len()
-day_count=len(data)-1
+day_count=len(data)
 #CAUTION!!! DON'T EDIT THIS PART START
 # Print out the solution:
 print("Number of days:", day_count)
@@ -71,7 +71,8 @@ print("Number of days:", day_count)
 first_obs = None
  
 # YOUR CODE HERE 5
-
+#get date of first observation by at[]
+first_obs=data.at[0,'DATE']
 #CAUTION!!! DON'T EDIT THIS PART START
 # Print out the solution:
 print('Date of the first observation:',first_obs)
