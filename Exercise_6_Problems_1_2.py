@@ -84,7 +84,8 @@ print('Date of the first observation:',first_obs)
 last_obs = None
 
 # YOUR CODE HERE 6
-
+#get date of last observation by at[]
+last_obs=data.at[(day_count-1),'DATE']
 #CAUTION!!! DON'T EDIT THIS PART START
 # Print out the solution:
 print('Date of the last observation:', last_obs)
