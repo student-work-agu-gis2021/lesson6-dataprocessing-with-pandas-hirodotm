@@ -98,7 +98,9 @@ print('Date of the last observation:', last_obs)
 avg_temp = None
 
 # YOUR CODE HERE 7
-
+#calculate average of the temperatures
+avg_temp=data['TAVG'].sum()
+avg_temp=avg_temp/len(data)
 #CAUTION!!! DON'T EDIT THIS PART START
 # Print out the solution:
 print('Average temperature (F) for the whole dataset:', round(avg_temp, 2))
