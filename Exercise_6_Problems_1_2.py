@@ -17,7 +17,8 @@ import numpy as np
 data = None
 
 # YOUR CODE HERE 1
-
+#Read the file by using pandas as ".csv" in the rules that to ignore second rows and to transrate -9999 to NaN 
+data=pd.read_csv('data/1091402.txt',skiprows=[1],na_values=-9999)
 # ### Part 2 
 # 
 # In this section, you will calculate simple statistics based on the input data:
