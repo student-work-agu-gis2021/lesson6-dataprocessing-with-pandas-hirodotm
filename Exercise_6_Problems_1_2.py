@@ -105,7 +105,7 @@ for row in range(len(data)):
   if not(np.isnan(data.at[row,'TAVG'])):
     avg=avg+data.at[row,'TAVG']
     count=count+1
-print(avg/count)
+#print(avg/count)
 #CAUTION!!! DON'T EDIT THIS PART START
 # Print out the solution:
 print('Average temperature (F) for the whole dataset:', round(avg_temp, 2))
@@ -130,7 +130,7 @@ for row in range(len(data)):
     avg_temp_1969_t=avg_temp_1969_t+data.at[row,'TMAX']
     count=count+1
 avg_temp_1969_t=avg_temp_1969_t/count
-print(avg_temp_1969_t)
+#print(avg_temp_1969_t)
 #CAUTION!!! DON'T EDIT THIS PART START
 # This test print should print a number
 print('Average temperature (F) for the Summer of 69:', round(avg_temp_1969, 2))
@@ -143,29 +143,52 @@ print('Average temperature (F) for the Summer of 69:', round(avg_temp_1969, 2))
 monthly_data = None
 
 # YOUR CODE HERE 9
+#redefine data in each manth as celsius
+#start day
 day=data.at[0,'DATE']
+#temperature of start day
 montht=data.at[0,'TAVG']
+#store the manthly temperatures in list
 monthly_datat=[]
 count=1
 for row in range(1,len(data)):
-  if data.at[row,'DATE']-day==1:
+  #not change month
+  if data.at[row,'DATE']-day<=30:
+    #not null
     if not(np.isnan(data.at[row,'TAVG'])):
       montht=montht+data.at[row,'TAVG']
+      count+=1
+    #go to tomorrow
     day+=1
-    count+=1
+  #change month
   else:
-    monthly_datat.append(montht/count)
+    if not count==0:
+      #add the average of monthly temperature in celsius
+      monthly_datat.append((montht/count-32)/1.8)
+    else:
+      monthly_datat.append(None)
+    #not null
     if not(np.isnan(data.at[row,'TAVG'])):
-      montht=(data.at[row,'TAVG']-32)/1.8
+      #data of start of month
+      montht=data.at[row,'TAVG']
+      count=1
+    #null
     else:
       montht=0
-    count=1
+      count=0
     day=data.at[row,'DATE']
-    
+    #print(day)
+if not(np.isnan(data.at[len(data)-1,'TAVG'])):
+  montht=montht+data.at[len(data)-1,'TAVG']
+  count+=1
+if not count==0:
+  #add the average of monthly temperature in celsius
+  monthly_datat.append((montht/count-32)/1.8)
+else:
+  monthly_datat.append(None)
 
-
-monthly_data=pd.DataFrame(montht,columns=['temp_celsius'])
-print(monthly_data)
+monthly_data=pd.DataFrame({'temp_celsius':monthly_datat})
+#print(monthly_data)
 
 
 #CAUTION!!! DON'T EDIT THIS PART START
