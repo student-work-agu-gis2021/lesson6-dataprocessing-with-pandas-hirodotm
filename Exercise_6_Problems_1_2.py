@@ -27,7 +27,6 @@ data=pd.read_csv('data/1091402.txt',delim_whitespace=True,skiprows=[1],na_values
 #     - Assign your answer to a variable called `tavg_nodata_count`.
 
 tavg_nodata_count = None
-
 #YOUR CODE HERE 2
 #count null in TAVG by using isnull().sum()
 tavg_nodata_count=data['TAVG'].isnull().sum() 
@@ -96,11 +95,17 @@ print('Date of the last observation:', last_obs)
 #     - Assign your answer into a variable called `avg_temp`
 
 avg_temp = None
-
 # YOUR CODE HERE 7
 #calculate average of the temperatures
-avg_temp=data['TAVG'].sum()
-avg_temp=avg_temp/len(data)
+avg_temp=data['TAVG'].mean()
+#other version
+avg=0
+count=0
+for row in range(len(data)):
+  if not(np.isnan(data.at[row,'TAVG'])):
+    avg=avg+data.at[row,'TAVG']
+    count=count+1
+print(avg/count)
 #CAUTION!!! DON'T EDIT THIS PART START
 # Print out the solution:
 print('Average temperature (F) for the whole dataset:', round(avg_temp, 2))
@@ -110,10 +115,15 @@ print('Average temperature (F) for the whole dataset:', round(avg_temp, 2))
 # - Find the average `TMAX` temperature over the Summer of 1969 (months May, June, July, and August of the year 1969)
 #     - Assign your answer into a variable called `avg_temp_1969`
 
-avg_temp_1969 = None
+avg_temp_1969 = 0
 
 # YOUR CODE HERE 8
-
+count=0
+for row in range(len(data)):
+  if (data.at[row,'DATE']>=19690501) and (data.at[row,'DATE']<=19690831):
+    avg_temp_1969=avg_temp_1969+data.at[row,'TMAX']
+    count=count+1
+avg_temp_1969=avg_temp_1969/count
 #CAUTION!!! DON'T EDIT THIS PART START
 # This test print should print a number
 print('Average temperature (F) for the Summer of 69:', round(avg_temp_1969, 2))
