@@ -118,9 +118,10 @@ print('Average temperature (F) for the whole dataset:', round(avg_temp, 2))
 avg_temp_1969 = 0
 
 # YOUR CODE HERE 8
+#calculate the sum of non null object in 19690501-19690831
 count=0
 for row in range(len(data)):
-  if (data.at[row,'DATE']>=19690501) and (data.at[row,'DATE']<=19690831):
+  if (not(np.isnan(data.at[row,'TMAX']))) and (data.at[row,'DATE']>=19690501) and (data.at[row,'DATE']<=19690831) :
     avg_temp_1969=avg_temp_1969+data.at[row,'TMAX']
     count=count+1
 avg_temp_1969=avg_temp_1969/count
