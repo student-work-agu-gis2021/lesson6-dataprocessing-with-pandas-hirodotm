@@ -115,16 +115,22 @@ print('Average temperature (F) for the whole dataset:', round(avg_temp, 2))
 # - Find the average `TMAX` temperature over the Summer of 1969 (months May, June, July, and August of the year 1969)
 #     - Assign your answer into a variable called `avg_temp_1969`
 
-avg_temp_1969 = 0
+avg_temp_1969 = None
 
 # YOUR CODE HERE 8
 #calculate the sum of non null object in 19690501-19690831
+avg_tempt=data[data['DATE']>=19690501]
+avg_tempt=avg_tempt[avg_tempt['DATE']<=19690831]
+avg_temp_1969=avg_tempt['TMAX'].mean()
+#other version
 count=0
+avg_temp_1969_t=0
 for row in range(len(data)):
   if (not(np.isnan(data.at[row,'TMAX']))) and (data.at[row,'DATE']>=19690501) and (data.at[row,'DATE']<=19690831) :
-    avg_temp_1969=avg_temp_1969+data.at[row,'TMAX']
+    avg_temp_1969_t=avg_temp_1969_t+data.at[row,'TMAX']
     count=count+1
-avg_temp_1969=avg_temp_1969/count
+avg_temp_1969_t=avg_temp_1969_t/count
+print(avg_temp_1969_t)
 #CAUTION!!! DON'T EDIT THIS PART START
 # This test print should print a number
 print('Average temperature (F) for the Summer of 69:', round(avg_temp_1969, 2))
@@ -137,6 +143,30 @@ print('Average temperature (F) for the Summer of 69:', round(avg_temp_1969, 2))
 monthly_data = None
 
 # YOUR CODE HERE 9
+day=data.at[0,'DATE']
+montht=data.at[0,'TAVG']
+monthly_datat=[]
+count=1
+for row in range(1,len(data)):
+  if data.at[row,'DATE']-day==1:
+    if not(np.isnan(data.at[row,'TAVG'])):
+      montht=montht+data.at[row,'TAVG']
+    day+=1
+    count+=1
+  else:
+    monthly_datat.append(montht/count)
+    if not(np.isnan(data.at[row,'TAVG'])):
+      montht=(data.at[row,'TAVG']-32)/1.8
+    else:
+      montht=0
+    count=1
+    day=data.at[row,'DATE']
+    
+
+
+monthly_data=pd.DataFrame(montht,columns=['temp_celsius'])
+print(monthly_data)
+
 
 #CAUTION!!! DON'T EDIT THIS PART START
 # This test print should print the length of variable monthly_data
